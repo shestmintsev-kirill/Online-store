@@ -5,10 +5,10 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Vuetify)
-
+/* eslint-disable */
 Vue.config.productionTip = false
 
-new Vue({
+ new Vue({
   el: '#app',
   router,
   components: { App },

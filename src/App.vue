@@ -1,7 +1,15 @@
 <template>
-<h1>Hallo Vue</h1>
+ <v-app>
+     <navbar/>
+ </v-app>
 </template>
 
 <script>
-export default {}
+/* eslint-disable */
+import navbar from './components/navbar.vue'
+export default {
+    components: {
+        navbar
+    }
+}
 </script>
