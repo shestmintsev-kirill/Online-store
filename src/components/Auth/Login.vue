@@ -29,7 +29,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" 
+            <v-btn 
+            color="primary" 
             @click="onSubmit"
             :loading="loading"
             :disabled="!valid || loading"
@@ -62,26 +63,31 @@ export default {
       ]
     };
   },
-  computed: {
+ computed: {
     loading () {
       return this.$store.getters.loading
     }
   },
   methods: {
-    onSubmit() {
+    onSubmit () {
       if (this.$refs.form.validate()) {
         const user = {
           email: this.email,
           password: this.password
-        };
+        }
 
         this.$store.dispatch('loginUser', user)
         .then(() => {
           this.$router.push('/')
         })
-        .catch(err => console.log(err))
+        .catch(() => {})
       }
     }
+  },
+  created () {
+    if (this.$route.query['loginError']) {
+      this.$store.dispatch('setError', 'Please log in to access this page')
+    }
   }
-};
+}
 </script>

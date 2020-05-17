@@ -109,7 +109,6 @@ export default {
                   imageSrc: 'https://image.ibb.co/g6czu8/HP_Omen_17.jpg'
               }
               this.$store.dispatch('createProduct', product)
-              console.log(product)
           }
       }
   }
