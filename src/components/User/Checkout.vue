@@ -4,11 +4,11 @@
       <v-flex xs12 sm6 offset-sm3>
         <h1 class="text-secondary mb-3">Orders</h1>
         <v-list two-line subheader>
-          <v-list-tile 
+          <v-list-tile
             avatar
             v-for="(order, i) in orders"
-            :key="i"          
-          > 
+            :key="i"
+          >
             <v-list-tile-action>
               <v-checkbox
               color="success"
@@ -20,7 +20,7 @@
               <v-list-tile-sub-title>{{ order.phone }}</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-btn 
+              <v-btn
               :to="'/product/' + order.productId"
               class="primary">Open</v-btn>
             </v-list-tile-action>
@@ -32,9 +32,9 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 export default {
-  data() {
+  data () {
     return {
       orders: [
         {
@@ -45,12 +45,12 @@ export default {
           done: false
         }
       ]
-    };
+    }
   },
   methods: {
     markDone (order) {
       order.done = true
     }
   }
-};
+}
 </script>

@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Vue from 'vue'
 import Router from 'vue-router'
 import AuthGuard from './auth-guard'
@@ -52,7 +51,7 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: Register
-    },
+    }
   ],
   mode: 'history'
 })

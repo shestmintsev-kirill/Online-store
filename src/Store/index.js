@@ -5,11 +5,10 @@ import user from './modules/user'
 import common from './modules/common'
 
 Vue.use(Vuex)
-/* eslint-disable */
 export default new Vuex.Store({
-    modules: {
-        products,
-        user,
-        common
-    }
+  modules: {
+    products,
+    user,
+    common
+  }
 })

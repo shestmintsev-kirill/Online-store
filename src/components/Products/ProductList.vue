@@ -3,7 +3,7 @@
     <v-layout row>
       <v-flex xs12 sm6 offset-sm3>
         <h1 class="text-secondary mb3">My products</h1>
-        <v-card 
+        <v-card
         v-for="(product, i) in myProducts"
         :key="i"
         class="elevation-10 mb-2">
@@ -35,7 +35,6 @@
 </template>
 
 <script>
-/* eslint-disable */
 export default {
   computed: {
     myProducts () {

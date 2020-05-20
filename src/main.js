@@ -8,24 +8,23 @@ import 'vuetify/dist/vuetify.min.css'
 import firebaseConfig from '../config/firebase'
 
 Vue.use(Vuetify)
-/* eslint-disable */
 Vue.config.productionTip = false
-
- new Vue({
+// eslint-disable-next-line
+new Vue({
   el: '#app',
   router,
   store,
   components: { App },
   template: '<App/>',
   created () {
-
-  // Initialize Firebase
-  fb.initializeApp(firebaseConfig);
-  fb.analytics();
-  fb.auth().onAuthStateChanged(user => {
-    if (user) {
-      this.$store.dispatch('autoLoginUser', user)
-    }
-  })
+    // Initialize Firebase
+    fb.initializeApp(firebaseConfig)
+    fb.analytics()
+    fb.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('autoLoginUser', user)
+      }
+    })
+    this.$store.dispatch('fetchProducts')
   }
 })

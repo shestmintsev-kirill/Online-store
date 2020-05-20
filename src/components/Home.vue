@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!loading">
     <v-container fluid>
       <v-layout row>
         <v-flex xs12>
@@ -11,7 +11,7 @@
     </v-container>
     <v-container grid-list-lg>
       <v-layout row wrap>
-        <v-flex 
+        <v-flex
         xs12
         sm6
         md4
@@ -21,7 +21,7 @@
         :aria-label="product.title"
         :to="'/product/' + product.id"
         >
-         <v-card-media :src="product.imageSrc" 
+         <v-card-media :src="product.imageSrc"
             height="350px"
             ></v-card-media>
         </router-link>
@@ -45,10 +45,19 @@
       </v-layout>
     </v-container>
   </div>
+  <div v-else>
+    <v-container>
+      <v-layout row>
+        <v-flex xs 12 class="text-xs-center pt-5">
+          <v-progress-circular :size="100" :width="4" indeterminate color="purple"></v-progress-circular>
+        </v-flex>
+      </v-layout>
+    </v-container>
+
+  </div>
 </template>
 
 <script>
-/* eslint-disable */
 export default {
   computed: {
     promoProducts () {
@@ -56,6 +65,9 @@ export default {
     },
     products () {
       return this.$store.getters.products
+    },
+    loading () {
+      return this.$store.getters.loading
     }
   }
 }
@@ -76,5 +88,5 @@ export default {
         color: #c00f1b;
         font-size: 18px;
     }
-    
+
 </style>

@@ -28,7 +28,7 @@
             <div class="title mb-5">
               <p class="product_title mb-2">Description:</p>{{ product.description }}
             </div>
-            <v-btn color="primary" class="headline">Edit</v-btn>
+            <add-edit-product :product="product"></add-edit-product>
             <v-btn color="primary" class="headline">Buy</v-btn>
           </div>
         </v-flex>
@@ -38,16 +38,19 @@
 </template>
 
 <script>
-/* eslint-disable */
+import EditProduct from './EditProduct'
 export default {
-  props: ["id"],
+  props: ['id'],
   computed: {
-    product() {
-      const id = this.id;
-      return this.$store.getters.productById(id);
+    product () {
+      const id = this.id
+      return this.$store.getters.productById(id)
     }
+  },
+  components: {
+    addEditProduct: EditProduct
   }
-};
+}
 </script>
 
 <style scoped>
