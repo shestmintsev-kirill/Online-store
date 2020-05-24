@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <section class="product mt-3 elevation-10">
+    <section class="product mt-3 elevation-10" v-if="!loading">
       <v-layout row wrap>
         <v-flex xs12 lg6>
           <img :src="product.imageSrc" class="product_img">
@@ -28,16 +28,20 @@
             <div class="title mb-5">
               <p class="product_title mb-2">Description:</p>{{ product.description }}
             </div>
-            <add-edit-product :product="product"></add-edit-product>
-            <v-btn color="primary" class="headline">Buy</v-btn>
+            <add-edit-product :product="product" v-if="isOwner"></add-edit-product>
+            <app-buy-dialog :product="product"></app-buy-dialog>
           </div>
         </v-flex>
       </v-layout>
+    </section>
+    <section v-else class="text-xs-center">
+      <v-progress-circular :size="100" :width="4" indeterminate color="purple"></v-progress-circular>
     </section>
   </v-container>
 </template>
 
 <script>
+import fb from 'firebase'
 import EditProduct from './EditProduct'
 export default {
   props: ['id'],
@@ -45,6 +49,16 @@ export default {
     product () {
       const id = this.id
       return this.$store.getters.productById(id)
+    },
+    loading () {
+      return this.$store.getters.loading
+    },
+    isOwner () {
+      if (this.$store.getters.isUserLoggedIn) {
+        return this.product.ownerId === fb.auth().currentUser.uid
+      } else {
+        console.log('YOU DO NOT LOGIN')
+      }
     }
   },
   components: {
@@ -84,5 +98,39 @@ export default {
   height: 20px;
   border: 1px solid #2b2b2b;
   border-radius: 10px;
+}
+@media screen and (max-width: 1270px) {
+  .product {
+    text-align: center;
+  }
+  .product_info {
+    margin-left: 0;
+  }
+}
+@media screen and (max-width: 620px) {
+  .product {
+    text-align: start;
+  }
+  .product_img {
+    width: 100%;
+    height: 100%;
+  }
+  .product_title {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 400px) {
+  .product {
+    padding: 10px;
+    text-align: start;
+    margin-bottom: 120px
+  }
+  .product_img {
+    height: 250px;
+    width: 100%;
+  }
+  .product_info {
+    margin-left: 0;
+  }
 }
 </style>

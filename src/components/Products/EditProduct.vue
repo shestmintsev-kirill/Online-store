@@ -1,6 +1,6 @@
 <template>
   <v-dialog width="400px" v-model="dialog">
-    <v-btn color="primary" class="headline" slot="activator">Edit</v-btn>
+    <v-btn dark class="light-blue darken-4" round slot="activator">Edit</v-btn>
     <v-card>
       <v-container>
         <v-layout row>
@@ -62,7 +62,14 @@ export default {
       this.dialog = false
     },
     onSave () {
-
+      if (this.editedTitle !== '' && this.editedDescription !== '') {
+        this.$store.dispatch('updateProduct', {
+          title: this.editedTitle,
+          description: this.editedDescription,
+          id: this.product.id
+        })
+        this.dialog = false
+      }
     }
   }
 }

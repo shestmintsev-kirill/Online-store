@@ -25,10 +25,17 @@ export default {
     },
     loadProducts (state, payload) {
       state.products = payload // в эту мутацию передаю массив товаров
+    },
+    updateProduct (state, {title, description, id}) {
+      const product = state.products.find(a => {
+        return a.id === id
+      })
+      product.title = title
+      product.description = description
     }
   },
   actions: {
-    async createProduct ({ commit, getters }, payload) {
+    async createProduct ({ commit }, payload) {
       commit('clearError')
       commit('setLoading', true)
       const image = payload.image
@@ -40,7 +47,7 @@ export default {
           payload.material,
           payload.price,
           payload.description,
-          getters.user.id,
+          fb.auth().currentUser.uid,
           '',
           payload.promo)
 
@@ -93,6 +100,26 @@ export default {
         commit('setLoading', false)
         throw error
       }
+    },
+    async updateProduct ({commit}, {title, description, id}) {
+      commit('clearError')
+      commit('setLoading', true)
+      try {
+        await fb.database().ref('products').child(id).update({
+          title,
+          description
+        })
+        commit('updateProduct', {
+          title,
+          description,
+          id
+        })
+        commit('setLoading', false)
+      } catch (error) {
+        commit('setError', error.massage)
+        commit('setLoading', false)
+        throw error
+      }
     }
   },
   getters: {
@@ -105,7 +132,9 @@ export default {
       })
     },
     myProducts (state) {
-      return state.products
+      return state.products.filter(product => {
+        return product.ownerId === fb.auth().currentUser.uid
+      })
     },
     productById (state) {
       return productId => {

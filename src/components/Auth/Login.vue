@@ -43,23 +43,14 @@
 </template>
 
 <script>
+import {rulesMixin} from '@/mixins'
 export default {
+  mixins: [rulesMixin],
   data () {
     return {
       email: '',
       password: '',
-      valid: false,
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v =>
-          /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) ||
-          'E-mail must be valid'
-      ],
-      passwordRules: [
-        v => !!v || 'Password is required',
-        v =>
-          (v && v.length >= 6) || 'Password must be equal or than 6 characters'
-      ]
+      valid: false
     }
   },
   computed: {
