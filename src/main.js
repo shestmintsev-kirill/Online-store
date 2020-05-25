@@ -17,7 +17,6 @@ fb.analytics()
 let app
 fb.auth().onAuthStateChanged(() => {
   if (!app) {
-    // eslint-disable-next-line
     app = new Vue({
       el: '#app',
       router,
